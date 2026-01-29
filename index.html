@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>Profissões da Área de TI</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <style>
+    :root {
+      --bg: #0f172a;
+      --card: #111827;
+      --primary: #38bdf8;
+      --text: #e5e7eb;
+      --muted: #94a3b8;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    body {
+      background: linear-gradient(135deg, #020617, #0f172a);
+      color: var(--text);
+      min-height: 100vh;
+      padding: 30px;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    header h1 {
+      font-size: 2.5rem;
+      color: var(--primary);
+    }
+
+    header p {
+      margin-top: 10px;
+      color: var(--muted);
+      font-size: 1.1rem;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 20px;
+    }
+
+    .card {
+      background: var(--card);
+      border-radius: 12px;
+      padding: 20px;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      cursor: pointer;
+      border: 1px solid #1f2933;
+    }
+
+    .card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+    }
+
+    .card h2 {
+      color: var(--primary);
+      margin-bottom: 10px;
+      font-size: 1.3rem;
+    }
+
+    .card p {
+      color: var(--muted);
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    .modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.7);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      z-index: 10;
+    }
+
+    .modal.active {
+      display: flex;
+    }
+
+    .modal-content {
+      background: #020617;
+      border-radius: 14px;
+      max-width: 500px;
+      width: 100%;
+      padding: 25px;
+      border: 1px solid #1f2933;
+      animation: fadeIn 0.3s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.95); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    .modal-content h2 {
+      color: var(--primary);
+      margin-bottom: 10px;
+    }
+
+    .modal-content p {
+      color: var(--text);
+      margin-bottom: 15px;
+      line-height: 1.5;
+    }
+
+    .modal-content ul {
+      padding-left: 18px;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .close-btn {
+      margin-top: 20px;
+      background: var(--primary);
+      color: #020617;
+      border: none;
+      padding: 10px 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    footer {
+      margin-top: 50px;
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.85rem;
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <h1>Profissões da Área de TI</h1>
+    <p>Tecnologia não é futuro. É o agora — e tem vaga pra todo perfil.</p>
+  </header>
+
+  <section class="grid">
+    <div class="card" onclick="openModal('dev')">
+      <h2>Desenvolvedor(a) de Software</h2>
+      <p>Cria sistemas, sites e aplicativos que resolvem problemas reais.</p>
+    </div>
+
+    <div class="card" onclick="openModal('dados')">
+      <h2>Cientista / Analista de Dados</h2>
+      <p>Transforma dados em decisões estratégicas.</p>
+    </div>
+
+    <div class="card" onclick="openModal('seguranca')">
+      <h2>Especialista em Segurança da Informação</h2>
+      <p>Protege sistemas contra ataques e vazamentos.</p>
+    </div>
+
+    <div class="card" onclick="openModal('infra')">
+      <h2>DevOps / Infraestrutura</h2>
+      <p>Garante que sistemas rodem estáveis, rápidos e escaláveis.</p>
+    </div>
+
+    <div class="card" onclick="openModal('ux')">
+      <h2>UX / UI Designer</h2>
+      <p>Cuida da experiência do usuário e da interface visual.</p>
+    </div>
+
+    <div class="card" onclick="openModal('produto')">
+      <h2>Product Manager</h2>
+      <p>Conecta negócio, tecnologia e usuário final.</p>
+    </div>
+  </section>
+
+  <div class="modal" id="modal">
+    <div class="modal-content" id="modalContent"></div>
+  </div>
+
+  <footer>
+    © 2026 — Tecnologia é sobre pessoas, não só código.
+  </footer>
+
+  <script>
+    const data = {
+      dev: {
+        title: "Desenvolvedor(a) de Software",
+        desc: "Responsável por criar aplicações, sistemas e soluções digitais.",
+        skills: [
+          "Lógica de programação",
+          "JavaScript, Python, Java, etc.",
+          "Banco de dados",
+          "Versionamento (Git)"
+        ]
+      },
+      dados: {
+        title: "Cientista / Analista de Dados",
+        desc: "Analisa grandes volumes de dados para apoiar decisões estratégicas.",
+        skills: [
+          "SQL, Python ou R",
+          "Estatística",
+          "Power BI / Tableau",
+          "Pensamento analítico"
+        ]
+      },
+      seguranca: {
+        title: "Especialista em Segurança da Informação",
+        desc: "Atua na proteção de dados, sistemas e redes.",
+        skills: [
+          "Redes e criptografia",
+          "Gestão de riscos",
+          "Normas e compliance",
+          "Ethical hacking"
+        ]
+      },
+      infra: {
+        title: "DevOps / Infraestrutura",
+        desc: "Cuida da disponibilidade, performance e escalabilidade dos sistemas.",
+        skills: [
+          "Cloud (AWS, Azure, GCP)",
+          "Docker e Kubernetes",
+          "CI/CD",
+          "Monitoramento"
+        ]
+      },
+      ux: {
+        title: "UX / UI Designer",
+        desc: "Foca na experiência do usuário e no design das interfaces.",
+        skills: [
+          "Design thinking",
+          "Figma",
+          "Pesquisa com usuários",
+          "Usabilidade"
+        ]
+      },
+      produto: {
+        title: "Product Manager",
+        desc: "Define visão, prioridades e estratégia do produto.",
+        skills: [
+          "Visão de negócio",
+          "Comunicação",
+          "Gestão de backlog",
+          "Análise de métricas"
+        ]
+      }
+    };
+
+    function openModal(key) {
+      const modal = document.getElementById("modal");
+      const content = document.getElementById("modalContent");
+      const item = data[key];
+
+      content.innerHTML = `
+        <h2>${item.title}</h2>
+        <p>${item.desc}</p>
+        <strong>Principais habilidades:</strong>
+        <ul>
+          ${item.skills.map(s => `<li>${s}</li>`).join("")}
+        </ul>
+        <button class="close-btn" onclick="closeModal()">Fechar</button>
+      `;
+
+      modal.classList.add("active");
+    }
+
+    function closeModal() {
+      document.getElementById("modal").classList.remove("active");
+    }
+
+    document.getElementById("modal").addEventListener("click", e => {
+      if (e.target.id === "modal") closeModal();
+    });
+  </script>
+
+</body>
+</html>
